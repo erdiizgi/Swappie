@@ -4,6 +4,7 @@ using System.Collections;
 public class Shape : MonoBehaviour
 {
     public string collidedTag;
+    public Reaction reaction;
 
     // Use this for initialization
     void Start()
@@ -19,6 +20,7 @@ public class Shape : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        this.collidedTag = other.gameObject.tag;    //Possible Tags = "SquareLandscape" , "Accelerator" , "TriangleLandscape" , "Target"  , "Danger"            
+        this.collidedTag = other.gameObject.tag;    //Possible Tags = "SquareLandscape" , "Accelerator" , "TriangleLandscape" , "Target"  , "Danger" 
+        this.reaction = other.gameObject.GetComponent<Reaction>();
     }
 }

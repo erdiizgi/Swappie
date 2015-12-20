@@ -12,6 +12,8 @@ public class Player : MonoBehaviour {
     private int currentShape;
 
     public string collidedTag;
+    public Reaction reaction;
+
     private bool canAccelerateAtStart;
     public bool canAccelerate;
     public int direction;
@@ -45,6 +47,7 @@ public class Player : MonoBehaviour {
     void SetCollideTags()
     {
         this.collidedTag = this.shapes[this.currentShape].collidedTag;
+        this.reaction = this.shapes[this.currentShape].reaction;
     }
 
 	// Update is called once per frame
@@ -76,14 +79,20 @@ public class Player : MonoBehaviour {
         if (this.canAccelerateAtStart == true && this.currentShape == 1)
         {
             this.canAccelerateAtStart = false;
-            this.rigidBodies[this.currentShape].velocity = new Vector2(x, 0);
+            //this.rigidBodies[this.currentShape].velocity = ;
+            this.rigidBodies[this.currentShape].AddForce(new Vector2(x, 0));
         }
     }
 
     //Set the player's velocity to x
     public void SetVelocity(float x)
     {
+        if(currentShape == 1)
         this.rigidBodies[this.currentShape].velocity = new Vector2(x * this.direction, 0);
+        else
+        {
+            this.rigidBodies[this.currentShape].transform.Translate(new Vector2(this.reaction.translateX, this.reaction.translateY)); 
+        }
     }
 
     //Returns the current shape index

@@ -8,7 +8,10 @@ public class GameController : MonoBehaviour {
     private CameraUtils camera;
     
     private int accelaratingFactor = 36;
-    private bool isFinished; 
+    private bool isFinished;
+
+    public TouchGesture.GestureSettings GestureSetting;
+    private TouchGesture touch;
 
 	// Use this for initialization
 	void Start () {
@@ -24,7 +27,15 @@ public class GameController : MonoBehaviour {
 
         //game
         this.world = new World(GameObject.FindGameObjectWithTag("World"), player);
-        
+
+        touch = new TouchGesture(this.GestureSetting);
+        StartCoroutine(touch.CheckHorizontalSwipes(
+            onLeftSwipe: () => { //player.Swap(); 
+            },
+            onRightSwipe: () => { //player.Swap(); 
+            }
+            ));
+
 	}
 	
 	// Update is called once per frame
@@ -40,7 +51,11 @@ public class GameController : MonoBehaviour {
                 this.player.Swap();
             }
 
-            player.UpdateVelocity(12);
+            player.UpdateVelocity(this.transform.GetComponent<LevelInfo>().startingVelocity);
+        }
+        else
+        {
+            this.Restart();
         }
 
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -54,7 +69,7 @@ public class GameController : MonoBehaviour {
     {
         if (this.player.collidedTag != null)
         {
-
+            Debug.Log(this.player.collidedTag);
             switch (this.player.collidedTag)
             {
                 //When the player fits into the Square Landscape
@@ -67,9 +82,13 @@ public class GameController : MonoBehaviour {
                             this.Restart();
                         }
 
-                        this.world.RotateClockWise();
+                        this.world.Rotate(this.player.reaction);
                         this.world.isRotatable = false;
-                        this.camera.CameraSizeLerp(16.45f, 15);
+                        if (this.player.reaction.cameraSize > 0)
+                        {
+                            this.camera.CameraSizeLerp(16.45f, this.player.reaction.cameraSize);
+                        }
+                       
                     }
                     break;
 
@@ -78,14 +97,23 @@ public class GameController : MonoBehaviour {
 
                     if (this.world.isCounterRotatable)
                     {
-                        if (this.player.Shape() != 2)
+                        if (this.player.Shape() != this.player.reaction.acceptedShape)
                         {
                             this.Restart();
                         }
 
-                        this.world.RotateCounterClockWise();
-                        this.camera.CameraSizeLerp(15, 12);
-                        this.camera.CameraDown(4);
+                        this.world.Rotate(this.player.reaction);
+                        if (this.player.reaction.cameraSize > 0)
+                        {
+                            this.camera.CameraSizeLerp(15, this.player.reaction.cameraSize); // 12
+                        }
+
+                        if (this.player.reaction.cameraDown > 0)
+                        {
+                            this.camera.CameraDown(this.player.reaction.cameraDown); // 4
+                        }
+                        
+                        //
                         this.world.isCounterRotatable = false;
                         this.player.canAccelerate = true;
                         this.accelaratingFactor = 12;
@@ -94,10 +122,10 @@ public class GameController : MonoBehaviour {
 
                 //When the player collided with the accellerator
                 case "Accelerator":
-
+                    Debug.Log(player.canAccelerate);
                     if (this.player.Shape() == 1 && this.player.canAccelerate == true)
                     {
-                        this.player.SetVelocity(this.accelaratingFactor);
+                        this.player.SetVelocity(this.player.reaction.velocity);
                         this.player.canAccelerate = false;
                     }
                     break;
@@ -105,9 +133,11 @@ public class GameController : MonoBehaviour {
                 //When the player collides with target
                 case "Target":
 
-                    if (this.player.Shape() == 0)
+                    Debug.Log("he");
+                    if (this.player.Shape() == this.player.reaction.acceptedShape)
                     {
                         this.isFinished = true;
+                        
                     }
                     break;
 
