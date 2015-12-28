@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 6a494bbb909bf1a4ab2bd7dbb1e8d9ff
-timeCreated: 1448403969
+guid: bfd84c36d79fd7044bfff08c4a1114b2
+timeCreated: 1450870665
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName: {}
@@ -30,7 +30,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     filterMode: -1
-    aniso: 16
+    aniso: -1
     mipBias: -1
     wrapMode: 1
   nPOTScale: 0
@@ -47,12 +47,7 @@ TextureImporter:
   spritePixelsToUnits: 100
   alphaIsTransparency: 1
   textureType: 8
-  buildTargetSettings:
-  - buildTarget: Android
-    maxTextureSize: 128
-    textureFormat: -1
-    compressionQuality: 0
-    allowsAlphaSplitting: 0
+  buildTargetSettings: []
   spriteSheet:
     sprites: []
   spritePackingTag: 
