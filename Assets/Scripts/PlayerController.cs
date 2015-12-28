@@ -69,10 +69,10 @@ public class PlayerController : MonoBehaviour {
 
     void LateUpdate()
     {
-        if (this.currentState == "Circle")
+		if (this.currentState == "Circle" && isOnGround())
         {
             this.rigidBody.velocity = this.currentSpeed * (this.velocity.normalized);
-        }
+		}
     }
 
     void ReceiveInput()
@@ -174,4 +174,9 @@ public class PlayerController : MonoBehaviour {
                 break;
         }
     }
+
+	private bool isOnGround()
+	{
+		return Physics2D.Raycast (transform.position, Vector3.down, CircleCollider.bounds.extents.y + 0.1f);
+	}
 }
