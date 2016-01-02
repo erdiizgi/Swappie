@@ -27,7 +27,7 @@ public class GameController : MonoBehaviour {
 
         //game
         this.world = new World(GameObject.FindGameObjectWithTag("World"), player);
-
+        /*
         touch = new TouchGesture(this.GestureSetting);
         StartCoroutine(touch.CheckHorizontalSwipes(
             onLeftSwipe: () => { //player.Swap(); 
@@ -35,7 +35,7 @@ public class GameController : MonoBehaviour {
             onRightSwipe: () => { //player.Swap(); 
             }
             ));
-
+        */
 	}
 	
 	// Update is called once per frame

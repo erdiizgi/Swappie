@@ -9,10 +9,10 @@ public class SwipeControlMenu : MonoBehaviour {
 
     void Start()
     {
-        touch = new TouchGesture(this.GestureSetting);
+       /* touch = new TouchGesture(this.GestureSetting);
         StartCoroutine(touch.CheckHorizontalSwipes(
             onLeftSwipe: () => { swipeControlObject.GetComponent<LevelSelector>().Next(); },
             onRightSwipe: () => { swipeControlObject.GetComponent<LevelSelector>().Previous(); }
-            ));
+            ));*/
     }
 }

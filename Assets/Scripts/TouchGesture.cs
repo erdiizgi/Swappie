@@ -42,10 +42,10 @@ public class TouchGesture
                         if (isASwipe(touch))
                         {
                             couldBeSwipe = false; //<-- Otherwise this part would be called over and over again.
-                            if (Mathf.Sign(touch.position.x - startPos.x) == 1f) //Swipe-direction, either 1 or -1.   
+                            /*if (Mathf.Sign(touch.position.x - startPos.x) == 1f) //Swipe-direction, either 1 or -1.   
                                 onRightSwipe(); //Right-swipe
                             else
-                                onLeftSwipe(); //Left-swipe
+                                onLeftSwipe(); //Left-swipe*/
                         }
                         break;
                 }

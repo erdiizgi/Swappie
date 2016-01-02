@@ -8,6 +8,8 @@ public class PlayerController : MonoBehaviour {
     private string currentState;
     private Animator animator;
     private int currentDirection;
+    private bool isOnGround;
+    private bool isStucked;
 
     //Colliders
     private BoxCollider2D SquareCollider;
@@ -16,6 +18,9 @@ public class PlayerController : MonoBehaviour {
 
     //Rigidbody
     private Rigidbody2D rigidBody;
+
+    //World
+    private GameObject world;
 
     //Velocit Vector
     Vector3 velocity = new Vector3(1, 0, 0);
@@ -26,6 +31,9 @@ public class PlayerController : MonoBehaviour {
         this.animator = this.GetComponent<Animator>();
         this.currentDirection = 1; // 1 for RIGHT / -1 for LEFT
 
+        this.world = GameObject.Find("World");
+        this.isStucked = false;
+
         //Grab the colliders
         this.SquareCollider = this.GetComponent<BoxCollider2D>();
         this.CircleCollider = this.GetComponent<CircleCollider2D>();
@@ -34,6 +42,7 @@ public class PlayerController : MonoBehaviour {
         //Grab the Rigidbody
         this.rigidBody = this.GetComponent<Rigidbody2D>();
         this.setRigidbody();
+        LeanTween.rotate(this.gameObject, new Vector3(0, 0, 360), 1.5f).setEase(LeanTweenType.linear);
 	}
 	
 	// Update is called once per frame
@@ -62,6 +71,8 @@ public class PlayerController : MonoBehaviour {
                 this.SquareCollider.enabled = false;
                 this.CircleCollider.enabled = true;
                 this.TriangleCollider.enabled = false;
+                this.RotateCircleAnimation(0);
+
                // this.transform.position = Vector3.MoveTowards(transform.position, transform.position + new Vector3(1,0), Time.deltaTime * this.currentSpeed);
                 break;
         }
@@ -69,10 +80,10 @@ public class PlayerController : MonoBehaviour {
 
     void LateUpdate()
     {
-		if (this.currentState == "Circle" && isOnGround())
+        if (this.currentState == "Circle" && isOnGround)
         {
-            this.rigidBody.velocity = this.currentSpeed * (this.velocity.normalized);
-		}
+            this.rigidBody.velocity = this.currentDirection * this.currentSpeed * (this.velocity.normalized);
+        }
     }
 
     void ReceiveInput()
@@ -153,30 +164,144 @@ public class PlayerController : MonoBehaviour {
 
     private void setRigidbody()
     {
+        if (this.isStucked)
+        {
+            this.UnfixPlayer();
+        }
+
         switch (this.currentState)
         {
             case "Square":
-
+                this.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation;
+                this.transform.eulerAngles = new Vector3(0, 0, 0);
                 this.rigidBody.gravityScale = 10;
                 this.rigidBody.mass = 10;
                 break;
 
             case "Circle":
-
+                this.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
                 this.rigidBody.gravityScale = 5;
                 this.rigidBody.mass = 5;
                 break;
 
             case "Triangle":
-
-                this.rigidBody.gravityScale = -1;
+                this.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation;
+                this.transform.eulerAngles = new Vector3(0, 0, 0);
+                this.rigidBody.gravityScale = -0.3f;
                 this.rigidBody.mass = 5;
                 break;
         }
     }
 
-	private bool isOnGround()
-	{
-		return Physics2D.Raycast (transform.position, Vector3.down, CircleCollider.bounds.extents.y + 0.1f);
-	}
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Target"))
+        {
+            Config config = other.GetComponent<Config>();
+
+            if (config.acceptedShape == this.currentState)
+            {
+                other.transform.GetComponent<TargetController>().TargetTrigger(this.gameObject);
+                this.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezePositionY;
+
+                StartCoroutine(LoadLevel(config.levelIndex, 3f));
+            }
+        }
+
+        else if (other.CompareTag("Danger"))
+        {
+            Config config = other.GetComponent<Config>();
+            Application.LoadLevel(config.levelIndex);
+        }
+
+        else if (other.CompareTag("Spiky Landscape"))
+        {
+            Config config = other.GetComponent<Config>();
+
+            int id = LeanTween.rotate(this.world, new Vector3(0, 0, config.RotationInDeg), 0.5f).setEase(LeanTweenType.easeInOutSine).id;
+
+            LTDescr descr = LeanTween.descr(id);
+            if (descr != null) // if the tween has already finished it will come back null
+                descr.setOnComplete(() => AfterRotationEvents(config));
+
+        }
+    }
+
+    void AfterRotationEvents(Config config)
+    {
+        this.FixPlayer();
+
+        this.isStucked = true;
+
+        if (config.shouldChangeDir)
+        {
+            this.currentDirection *= -1;
+        }
+
+        if (config.isThereDestroyable)
+        {
+            for (int i = 0; i < config.destroyables.Length; i++)
+            {
+                int id = LeanTween.alpha(config.destroyables[i], 0f, 0.2f).id;
+                Destroy(config.destroyables[i], 0.5f);
+            }
+        }
+
+        if (config.isThereMovable)
+        {
+            LeanTween.move(config.movable, config.movableTarget.position, 0.5f);
+        }
+
+        if (config.isThereActivable)
+        {
+            for (int i = 0; i < config.activables.Length; i++)
+            {
+                int id = LeanTween.alpha(config.activables[i], 1f, 0.2f).id;
+                config.activables[i].gameObject.SetActive(true);
+            }
+        }
+    }
+
+    void FixPlayer()
+    {
+        this.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezePositionY;
+    }
+
+    void UnfixPlayer()
+    {
+        if (this.currentState != "Triangle")
+        {
+            this.isStucked = false;
+            this.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
+            this.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation;
+        }
+    }
+
+    void OnCollisionStay2D(Collision2D coll) 
+    {
+        this.isOnGround = coll.transform.CompareTag("Ground");
+    }
+
+    void FixedUpdate()
+    {
+        isOnGround = false;
+    }
+
+    void RotateCircleAnimation(int id)
+    {
+        LTDescr descr = LeanTween.descr(id);
+        if (descr != null) // if the tween has already finished it will come back null
+            descr.setOnComplete(() => RotateCircleAnimation(this.RotateCircle()));
+    }
+
+    int RotateCircle()
+    {
+        return LeanTween.rotate(this.gameObject, new Vector3(0, 0, 360), 1.5f).setEase(LeanTweenType.linear).id;
+    }
+
+    IEnumerator LoadLevel(int n, float delayTime)
+    {
+        yield return new WaitForSeconds(delayTime);
+        Application.LoadLevel(n);
+    }
 }
