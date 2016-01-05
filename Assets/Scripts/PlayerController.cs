@@ -3,7 +3,7 @@ using System.Collections;
 
 public class PlayerController : MonoBehaviour {
 
-    public int currentSpeed;
+    public float currentSpeed;
 
     private string currentState;
     private Animator animator;
@@ -309,6 +309,20 @@ public class PlayerController : MonoBehaviour {
                 int id = LeanTween.alpha(config.activables[i], 1f, 0.2f).id;
                 config.activables[i].gameObject.SetActive(true);
             }
+        }
+
+        if (config.hasCameraAnimations)
+        {
+            LeanTween.value(Camera.allCameras[0].gameObject, Camera.allCameras[0].gameObject.GetComponent<Camera>().orthographicSize, config.camerazoomFrom5to, 0.5f).setDelay(0.1f).setOnUpdate((float val) =>
+            {
+                Camera.allCameras[0].gameObject.GetComponent<Camera>().orthographicSize = val;
+            });
+
+            Vector3 position = Camera.allCameras[0].gameObject.GetComponent<Transform>().position;
+            LeanTween.value(Camera.allCameras[0].gameObject, position, new Vector3(position.x, position.y - config.cameraMoveonYAxis, position.z), 0.5f).setOnUpdate((Vector3 val) =>
+            {
+                Camera.allCameras[0].gameObject.GetComponent<Transform>().position = val;
+            });
         }
     }
 

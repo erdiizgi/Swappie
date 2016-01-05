@@ -37,4 +37,8 @@ public class Config : MonoBehaviour {
     public bool isTargetText;
     public GameObject targetText;
 
+    //Camera Animations
+    public bool hasCameraAnimations;
+    public float camerazoomFrom5to;
+    public float cameraMoveonYAxis;
 }
