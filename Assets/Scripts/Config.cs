@@ -20,6 +20,10 @@ public class Config : MonoBehaviour {
     public bool isThereDestroyable;
     public GameObject[] destroyables;
 
+    //Destroy Immediately
+    public bool isThereImmediateDestroy;
+    public GameObject[] immeddiatetlyDestroyables;
+
     //Movable
     public bool isThereMovable;
     public GameObject movable;
@@ -28,5 +32,9 @@ public class Config : MonoBehaviour {
     //Activable
     public bool isThereActivable;
     public GameObject[] activables;
+
+    //Target Text
+    public bool isTargetText;
+    public GameObject targetText;
 
 }

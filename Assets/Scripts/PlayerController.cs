@@ -206,12 +206,20 @@ public class PlayerController : MonoBehaviour {
 
                 StartCoroutine(LoadLevel(config.levelIndex, 3f));
             }
+
+            else
+            {
+                if (config.isTargetText)
+                {
+                    config.targetText.gameObject.SetActive(true);
+                }
+            }
         }
 
         else if (other.CompareTag("Danger"))
         {
             Config config = other.GetComponent<Config>();
-            Application.LoadLevel(config.levelIndex);
+            this.LoadLevelviaConf(config);
         }
 
         else if (other.CompareTag("Spiky Landscape"))
@@ -219,11 +227,53 @@ public class PlayerController : MonoBehaviour {
             Config config = other.GetComponent<Config>();
 
             int id = LeanTween.rotate(this.world, new Vector3(0, 0, config.RotationInDeg), 0.5f).setEase(LeanTweenType.easeInOutSine).id;
-
+            BeforeRotationEvents(config);
             LTDescr descr = LeanTween.descr(id);
             if (descr != null) // if the tween has already finished it will come back null
                 descr.setOnComplete(() => AfterRotationEvents(config));
 
+        }
+
+        else if (other.CompareTag("Square Landscape"))
+        {
+            Config config = other.GetComponent<Config>();
+
+            if (this.currentState == config.acceptedShape)
+            {
+                int id = LeanTween.rotate(this.world, new Vector3(0, 0, config.RotationInDeg), 0.5f).setEase(LeanTweenType.easeInOutSine).id;
+                BeforeRotationEvents(config);
+                LTDescr descr = LeanTween.descr(id);
+                if (descr != null) // if the tween has already finished it will come back null
+                    descr.setOnComplete(() => AfterRotationEvents(config));
+            }
+
+            else
+            {
+                this.LoadLevelviaConf(config);
+            }
+           
+        }
+
+        else if (other.CompareTag("Bounce"))
+        {
+            this.currentDirection *= -1;
+        }
+    }
+
+    void LoadLevelviaConf(Config config)
+    {
+        Application.LoadLevel(config.levelIndex);
+    }
+
+    void BeforeRotationEvents(Config config)
+    {
+        if (config.isThereImmediateDestroy)
+        {
+            for (int i = 0; i < config.immeddiatetlyDestroyables.Length; i++)
+            {
+                int id = LeanTween.alpha(config.immeddiatetlyDestroyables[i], 0f, 0.2f).id;
+                Destroy(config.immeddiatetlyDestroyables[i], 0.1f);
+            }
         }
     }
 
@@ -285,6 +335,7 @@ public class PlayerController : MonoBehaviour {
     void FixedUpdate()
     {
         isOnGround = false;
+
     }
 
     void RotateCircleAnimation(int id)
