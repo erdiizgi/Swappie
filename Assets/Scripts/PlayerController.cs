@@ -162,6 +162,38 @@ public class PlayerController : MonoBehaviour {
         this.setRigidbody();
     }
 
+	public void PressNextShape()
+	{
+		switch(this.currentState)
+		{
+		case "Square":
+			PressCircle ();
+			break;
+		case "Circle":
+			PressTriangle ();
+			break;
+		case "Triangle":
+			PressSquare();
+			break;
+		}
+	}
+
+	public void PressPreviousShape()
+	{
+		switch(this.currentState)
+		{
+		case "Square":
+			PressTriangle ();
+			break;
+		case "Circle":
+			PressSquare ();
+			break;
+		case "Triangle":
+			PressCircle();
+			break;
+		}
+	}
+
     private void setRigidbody()
     {
         if (this.isStucked)
@@ -174,13 +206,13 @@ public class PlayerController : MonoBehaviour {
             case "Square":
                 this.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation;
                 this.transform.eulerAngles = new Vector3(0, 0, 0);
-                this.rigidBody.gravityScale = 10;
+                this.rigidBody.gravityScale = 2;
                 this.rigidBody.mass = 10;
                 break;
 
             case "Circle":
                 this.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
-                this.rigidBody.gravityScale = 5;
+                this.rigidBody.gravityScale = 1;
                 this.rigidBody.mass = 5;
                 break;
 
@@ -369,4 +401,9 @@ public class PlayerController : MonoBehaviour {
         yield return new WaitForSeconds(delayTime);
         Application.LoadLevel(n);
     }
+
+	public string GetCurrentState()
+	{
+		return currentState;
+	}
 }
