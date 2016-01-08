@@ -10,11 +10,20 @@ public class PlayerController : MonoBehaviour {
     private int currentDirection;
     private bool isOnGround;
     private bool isStucked;
+    private bool isControllerLocked;
 
     //Colliders
     private BoxCollider2D SquareCollider;
     private CircleCollider2D CircleCollider;
     private PolygonCollider2D TriangleCollider;
+
+    //Sounds
+    public GameObject audioPrefab;
+    private AudioSource fitTargetSound;
+    private AudioSource dieSound;
+    private AudioSource landscapeSound;
+    private AudioSource changeSound;
+    private AudioSource bounceSound;
 
     //Rigidbody
     private Rigidbody2D rigidBody;
@@ -33,6 +42,14 @@ public class PlayerController : MonoBehaviour {
 
         this.world = GameObject.Find("World");
         this.isStucked = false;
+        this.isControllerLocked = false;
+
+        //Initialize the sounds
+        this.fitTargetSound = this.audioPrefab.transform.GetChild(0).GetComponent<AudioSource>();
+        this.dieSound = this.audioPrefab.transform.GetChild(1).GetComponent<AudioSource>();
+        this.landscapeSound = this.audioPrefab.transform.GetChild(2).GetComponent<AudioSource>();
+        this.changeSound = this.audioPrefab.transform.GetChild(3).GetComponent<AudioSource>();
+        this.bounceSound = this.audioPrefab.transform.GetChild(4).GetComponent<AudioSource>();
 
         //Grab the colliders
         this.SquareCollider = this.GetComponent<BoxCollider2D>();
@@ -42,7 +59,6 @@ public class PlayerController : MonoBehaviour {
         //Grab the Rigidbody
         this.rigidBody = this.GetComponent<Rigidbody2D>();
         this.setRigidbody();
-        LeanTween.rotate(this.gameObject, new Vector3(0, 0, 360), 1.5f).setEase(LeanTweenType.linear);
 	}
 	
 	// Update is called once per frame
@@ -71,8 +87,7 @@ public class PlayerController : MonoBehaviour {
                 this.SquareCollider.enabled = false;
                 this.CircleCollider.enabled = true;
                 this.TriangleCollider.enabled = false;
-                this.RotateCircleAnimation(0);
-
+                
                // this.transform.position = Vector3.MoveTowards(transform.position, transform.position + new Vector3(1,0), Time.deltaTime * this.currentSpeed);
                 break;
         }
@@ -88,110 +103,131 @@ public class PlayerController : MonoBehaviour {
 
     void ReceiveInput()
     {
-        if (Input.GetKeyDown(KeyCode.A)) //Square
+        if (!this.isControllerLocked)
         {
-            this.PressSquare();
-        }
+            if (Input.GetKeyDown(KeyCode.A)) //Square
+            {
+                this.PressSquare();
+            }
 
-        else if (Input.GetKeyDown(KeyCode.S)) //Circle
-        {
-            this.PressCircle();
-        }
+            else if (Input.GetKeyDown(KeyCode.S)) //Circle
+            {
+                this.PressCircle();
+            }
 
-        else if (Input.GetKeyDown(KeyCode.D)) //Triangle
-        {
-            this.PressTriangle();
+            else if (Input.GetKeyDown(KeyCode.D)) //Triangle
+            {
+                this.PressTriangle();
+            }
         }
     }
 
     
     public void PressSquare()
     {
-        switch (this.currentState)
+        if (!this.isControllerLocked)
         {
-            case "Circle":
+            this.changeSound.Play();
+            switch (this.currentState)
+            {
+                case "Circle":
 
-                this.animator.SetInteger("Status", 21);
-                break;
+                    this.animator.SetInteger("Status", 21);
+                    break;
 
-            case "Triangle":
+                case "Triangle":
 
-                this.animator.SetInteger("Status", 31);
-                break;
+                    this.animator.SetInteger("Status", 31);
+                    break;
+            }
+
+            this.currentState = "Square";
+            this.setRigidbody();
         }
-
-        this.currentState = "Square";
-        this.setRigidbody();
     }
 
     public void PressCircle()
     {
-        switch (this.currentState)
+        if (!this.isControllerLocked)
         {
-            case "Square":
-                
-                this.animator.SetInteger("Status", 12);
-                break;
+            this.changeSound.Play();
+            switch (this.currentState)
+            {
+                case "Square":
 
-            case "Triangle":
-               
-                this.animator.SetInteger("Status", 32);
-                break;
+                    this.animator.SetInteger("Status", 12);
+                    break;
+
+                case "Triangle":
+
+                    this.animator.SetInteger("Status", 32);
+                    break;
+            }
+
+            this.currentState = "Circle";
+            this.setRigidbody();
         }
-
-        this.currentState = "Circle";
-        this.setRigidbody();
     }
 
     public void PressTriangle()
     {
-        switch (this.currentState)
+        if (!this.isControllerLocked)
         {
-            case "Square":
+            this.changeSound.Play();
+            switch (this.currentState)
+            {
+                case "Square":
 
-                this.animator.SetInteger("Status", 13);
-                break;
+                    this.animator.SetInteger("Status", 13);
+                    break;
 
-            case "Circle":
+                case "Circle":
 
-                this.animator.SetInteger("Status", 23);
-                break;
+                    this.animator.SetInteger("Status", 23);
+                    break;
+            }
+
+            this.currentState = "Triangle";
+            this.setRigidbody();
         }
-
-        this.currentState = "Triangle";
-        this.setRigidbody();
     }
 
 	public void PressNextShape()
-	{
-		switch(this.currentState)
-		{
-		case "Square":
-			PressCircle ();
-			break;
-		case "Circle":
-			PressTriangle ();
-			break;
-		case "Triangle":
-			PressSquare();
-			break;
-		}
+    {
+        if (!this.isControllerLocked)
+        {
+            switch (this.currentState)
+            {
+                case "Square":
+                    PressCircle();
+                    break;
+                case "Circle":
+                    PressTriangle();
+                    break;
+                case "Triangle":
+                    PressSquare();
+                    break;
+            }
+        }
 	}
 
 	public void PressPreviousShape()
-	{
-		switch(this.currentState)
-		{
-		case "Square":
-			PressTriangle ();
-			break;
-		case "Circle":
-			PressSquare ();
-			break;
-		case "Triangle":
-			PressCircle();
-			break;
-		}
+    {
+        if (!this.isControllerLocked)
+        {
+            switch (this.currentState)
+            {
+                case "Square":
+                    PressTriangle();
+                    break;
+                case "Circle":
+                    PressSquare();
+                    break;
+                case "Triangle":
+                    PressCircle();
+                    break;
+            }
+        }
 	}
 
     private void setRigidbody()
@@ -235,7 +271,8 @@ public class PlayerController : MonoBehaviour {
             {
                 other.transform.GetComponent<TargetController>().TargetTrigger(this.gameObject);
                 this.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezePositionY;
-
+                this.fitTargetSound.Play();
+                this.isControllerLocked = true;
                 StartCoroutine(LoadLevel(config.levelIndex, 3f));
             }
 
@@ -251,15 +288,20 @@ public class PlayerController : MonoBehaviour {
         else if (other.CompareTag("Danger"))
         {
             Config config = other.GetComponent<Config>();
-            this.LoadLevelviaConf(config);
+            this.animator.SetInteger("Status", 5);
+            LeanTween.move(this.gameObject, this.transform.position + new Vector3(0, 1), 0.5f);
+            this.dieSound.Play();
+            this.isControllerLocked = true;
+            StartCoroutine(LoadLevel(config.levelIndex, 0.5f));
         }
 
         else if (other.CompareTag("Spiky Landscape"))
         {
             Config config = other.GetComponent<Config>();
-
+            this.landscapeSound.Play();
             int id = LeanTween.rotate(this.world, new Vector3(0, 0, config.RotationInDeg), 0.5f).setEase(LeanTweenType.easeInOutSine).id;
             BeforeRotationEvents(config);
+            this.isControllerLocked = true;
             LTDescr descr = LeanTween.descr(id);
             if (descr != null) // if the tween has already finished it will come back null
                 descr.setOnComplete(() => AfterRotationEvents(config));
@@ -274,6 +316,8 @@ public class PlayerController : MonoBehaviour {
             {
                 int id = LeanTween.rotate(this.world, new Vector3(0, 0, config.RotationInDeg), 0.5f).setEase(LeanTweenType.easeInOutSine).id;
                 BeforeRotationEvents(config);
+                this.isControllerLocked = true;
+                this.landscapeSound.Play();
                 LTDescr descr = LeanTween.descr(id);
                 if (descr != null) // if the tween has already finished it will come back null
                     descr.setOnComplete(() => AfterRotationEvents(config));
@@ -281,7 +325,11 @@ public class PlayerController : MonoBehaviour {
 
             else
             {
-                this.LoadLevelviaConf(config);
+                this.dieSound.Play();
+                this.animator.SetInteger("Status", 5);
+                this.isControllerLocked = true;
+                LeanTween.move(this.gameObject, this.transform.position + new Vector3(0, 1), 0.5f);
+                StartCoroutine(LoadLevel(config.levelIndex, 0.5f));
             }
            
         }
@@ -289,6 +337,7 @@ public class PlayerController : MonoBehaviour {
         else if (other.CompareTag("Bounce"))
         {
             this.currentDirection *= -1;
+            this.bounceSound.Play();
         }
     }
 
@@ -314,6 +363,7 @@ public class PlayerController : MonoBehaviour {
         this.FixPlayer();
 
         this.isStucked = true;
+        this.isControllerLocked = false;
 
         if (config.shouldChangeDir)
         {
