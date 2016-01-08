@@ -1,0 +1,425 @@
+fileFormatVersion: 2
+guid: 8a5bbcb21f070b847b372bfee9968b4b
+timeCreated: 1452124677
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: Sprite_mouth_A_0
+    21300002: Sprite_mouth_A_1
+    21300004: Sprite_mouth_A_2
+    21300006: Sprite_mouth_A_3
+    21300008: Sprite_mouth_A_4
+    21300010: Sprite_mouth_A_5
+    21300012: Sprite_mouth_A_6
+    21300014: Sprite_mouth_A_7
+    21300016: Sprite_mouth_A_8
+    21300018: Sprite_mouth_A_9
+    21300020: Sprite_mouth_A_10
+    21300022: Sprite_mouth_A_11
+    21300024: Sprite_mouth_A_12
+    21300026: Sprite_mouth_A_13
+    21300028: Sprite_mouth_A_14
+    21300030: Sprite_mouth_A_15
+    21300032: Sprite_mouth_A_16
+    21300034: Sprite_mouth_A_17
+    21300036: Sprite_mouth_A_18
+    21300038: Sprite_mouth_A_19
+    21300040: Sprite_mouth_A_20
+    21300042: Sprite_mouth_A_21
+    21300044: Sprite_mouth_A_22
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 7
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -3
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: -1
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: Sprite_mouth_A_0
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 266
+        width: 47
+        height: 87
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -23.5, y: 43.5}
+        - {x: -23.5, y: -43.5}
+        - {x: 23.5, y: -43.5}
+        - {x: 23.5, y: 43.5}
+    - name: Sprite_mouth_A_1
+      rect:
+        serializedVersion: 2
+        x: 49
+        y: 266
+        width: 47
+        height: 87
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -23.5, y: 43.5}
+        - {x: -23.5, y: -43.5}
+        - {x: 23.5, y: -43.5}
+        - {x: 23.5, y: 43.5}
+    - name: Sprite_mouth_A_2
+      rect:
+        serializedVersion: 2
+        x: 97
+        y: 266
+        width: 47
+        height: 87
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -23.5, y: 43.5}
+        - {x: -23.5, y: -43.5}
+        - {x: 23.5, y: -43.5}
+        - {x: 23.5, y: 43.5}
+    - name: Sprite_mouth_A_3
+      rect:
+        serializedVersion: 2
+        x: 145
+        y: 266
+        width: 47
+        height: 87
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -23.5, y: 43.5}
+        - {x: -23.5, y: -43.5}
+        - {x: 23.5, y: -43.5}
+        - {x: 23.5, y: 43.5}
+    - name: Sprite_mouth_A_4
+      rect:
+        serializedVersion: 2
+        x: 193
+        y: 266
+        width: 47
+        height: 87
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -23.5, y: 43.5}
+        - {x: -23.5, y: -43.5}
+        - {x: 23.5, y: -43.5}
+        - {x: 23.5, y: 43.5}
+    - name: Sprite_mouth_A_5
+      rect:
+        serializedVersion: 2
+        x: 241
+        y: 266
+        width: 47
+        height: 87
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -23.5, y: 43.5}
+        - {x: -23.5, y: -43.5}
+        - {x: 23.5, y: -43.5}
+        - {x: 23.5, y: 43.5}
+    - name: Sprite_mouth_A_6
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 178
+        width: 47
+        height: 87
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -23.5, y: 43.5}
+        - {x: -23.5, y: -43.5}
+        - {x: 23.5, y: -43.5}
+        - {x: 23.5, y: 43.5}
+    - name: Sprite_mouth_A_7
+      rect:
+        serializedVersion: 2
+        x: 49
+        y: 178
+        width: 47
+        height: 87
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -23.5, y: 43.5}
+        - {x: -23.5, y: -43.5}
+        - {x: 23.5, y: -43.5}
+        - {x: 23.5, y: 43.5}
+    - name: Sprite_mouth_A_8
+      rect:
+        serializedVersion: 2
+        x: 97
+        y: 178
+        width: 47
+        height: 87
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -23.5, y: 43.5}
+        - {x: -23.5, y: -43.5}
+        - {x: 23.5, y: -43.5}
+        - {x: 23.5, y: 43.5}
+    - name: Sprite_mouth_A_9
+      rect:
+        serializedVersion: 2
+        x: 145
+        y: 178
+        width: 47
+        height: 87
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -23.5, y: 43.5}
+        - {x: -23.5, y: -43.5}
+        - {x: 23.5, y: -43.5}
+        - {x: 23.5, y: 43.5}
+    - name: Sprite_mouth_A_10
+      rect:
+        serializedVersion: 2
+        x: 193
+        y: 178
+        width: 47
+        height: 87
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -23.5, y: 43.5}
+        - {x: -23.5, y: -43.5}
+        - {x: 23.5, y: -43.5}
+        - {x: 23.5, y: 43.5}
+    - name: Sprite_mouth_A_11
+      rect:
+        serializedVersion: 2
+        x: 241
+        y: 178
+        width: 47
+        height: 87
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -23.5, y: 43.5}
+        - {x: -23.5, y: -43.5}
+        - {x: 23.5, y: -43.5}
+        - {x: 23.5, y: 43.5}
+    - name: Sprite_mouth_A_12
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 90
+        width: 47
+        height: 87
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -23.5, y: 43.5}
+        - {x: -23.5, y: -43.5}
+        - {x: 23.5, y: -43.5}
+        - {x: 23.5, y: 43.5}
+    - name: Sprite_mouth_A_13
+      rect:
+        serializedVersion: 2
+        x: 49
+        y: 90
+        width: 47
+        height: 87
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -23.5, y: 43.5}
+        - {x: -23.5, y: -43.5}
+        - {x: 23.5, y: -43.5}
+        - {x: 23.5, y: 43.5}
+    - name: Sprite_mouth_A_14
+      rect:
+        serializedVersion: 2
+        x: 97
+        y: 90
+        width: 47
+        height: 87
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -23.5, y: 43.5}
+        - {x: -23.5, y: -43.5}
+        - {x: 23.5, y: -43.5}
+        - {x: 23.5, y: 43.5}
+    - name: Sprite_mouth_A_15
+      rect:
+        serializedVersion: 2
+        x: 145
+        y: 90
+        width: 47
+        height: 87
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -23.5, y: 43.5}
+        - {x: -23.5, y: -43.5}
+        - {x: 23.5, y: -43.5}
+        - {x: 23.5, y: 43.5}
+    - name: Sprite_mouth_A_16
+      rect:
+        serializedVersion: 2
+        x: 193
+        y: 90
+        width: 47
+        height: 87
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -23.5, y: 43.5}
+        - {x: -23.5, y: -43.5}
+        - {x: 23.5, y: -43.5}
+        - {x: 23.5, y: 43.5}
+    - name: Sprite_mouth_A_17
+      rect:
+        serializedVersion: 2
+        x: 241
+        y: 90
+        width: 47
+        height: 87
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -23.5, y: 43.5}
+        - {x: -23.5, y: -43.5}
+        - {x: 23.5, y: -43.5}
+        - {x: 23.5, y: 43.5}
+    - name: Sprite_mouth_A_18
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 2
+        width: 47
+        height: 87
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -23.5, y: 43.5}
+        - {x: -23.5, y: -43.5}
+        - {x: 23.5, y: -43.5}
+        - {x: 23.5, y: 43.5}
+    - name: Sprite_mouth_A_19
+      rect:
+        serializedVersion: 2
+        x: 49
+        y: 2
+        width: 47
+        height: 87
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -23.5, y: 43.5}
+        - {x: -23.5, y: -43.5}
+        - {x: 23.5, y: -43.5}
+        - {x: 23.5, y: 43.5}
+    - name: Sprite_mouth_A_20
+      rect:
+        serializedVersion: 2
+        x: 97
+        y: 2
+        width: 47
+        height: 87
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -23.5, y: 43.5}
+        - {x: -23.5, y: -43.5}
+        - {x: 23.5, y: -43.5}
+        - {x: 23.5, y: 43.5}
+    - name: Sprite_mouth_A_21
+      rect:
+        serializedVersion: 2
+        x: 145
+        y: 2
+        width: 47
+        height: 87
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -23.5, y: 43.5}
+        - {x: -23.5, y: -43.5}
+        - {x: 23.5, y: -43.5}
+        - {x: 23.5, y: 43.5}
+    - name: Sprite_mouth_A_22
+      rect:
+        serializedVersion: 2
+        x: 193
+        y: 2
+        width: 48
+        height: 87
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -24, y: 43.5}
+        - {x: -24, y: -43.5}
+        - {x: 24, y: -43.5}
+        - {x: 24, y: 43.5}
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
